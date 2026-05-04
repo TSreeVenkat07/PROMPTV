@@ -36,14 +36,19 @@ app.add_middleware(SlowAPIMiddleware)
 async def root():
     return {"status": "PromptV API is active", "version": "1.0.0"}
 
-origins = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",")]
+# Robust CORS Configuration
+# We use regex to allow any subdomain of onrender.com safely, plus localhost
+origins = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_methods=["GET", "POST"],
+    allow_origin_regex=r"https://.*\.onrender\.com",
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
-    allow_credentials=True
+    allow_credentials=True,
+    expose_headers=["Content-Type", "X-Accel-Buffering"]
 )
+
 
 app.include_router(router, prefix="/api/v1")
 

@@ -23,8 +23,9 @@ class Settings(BaseSettings):
     RATE_LIMIT_GENERATE: int = 50
     RATE_LIMIT_RECOVER: int = 50
     RATE_LIMIT_IMAGE: int = 20
-    DB_POOL_MIN: int = 2
-    DB_POOL_MAX: int = 10
+    DB_POOL_MIN: int = 1
+    DB_POOL_MAX: int = 4
+
 
     class Config:
         env_file = ".env"
