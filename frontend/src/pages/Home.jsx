@@ -161,7 +161,7 @@ export default function Home() {
       <div className="relative flex flex-col lg:grid lg:grid-cols-12 gap-6 p-4 md:p-8 z-10">
         {/* MODES COLUMN */}
         <div className="order-2 lg:order-1 lg:col-span-3">
-          <div className="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 custom-scrollbar">
+          <div className="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 scrollbar-hide custom-scrollbar">
             {MODES.map((item) => (
               <div key={item.id} onClick={() => { 
                   if (mode !== item.id) {
