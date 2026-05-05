@@ -149,42 +149,46 @@ export default function Home() {
         <div className="absolute w-[500px] h-[500px] bg-yellow-500/10 blur-[120px] bottom-[-200px] right-[-200px]" />
       </div>
 
-      <header className="relative flex items-center justify-between px-10 py-6 border-b border-white/10 backdrop-blur-xl z-10">
-        <h1 className="text-2xl font-bold tracking-wide">
+      <header className="relative flex items-center justify-between px-4 md:px-10 py-4 md:py-6 border-b border-white/10 backdrop-blur-xl z-10">
+        <h1 className="text-xl md:text-2xl font-bold tracking-wide">
           <span className="text-blue-400">PROMPT</span><span className="text-yellow-400">V</span>
         </h1>
-        <div className="text-sm text-gray-400">Imperial Edition • {mode.charAt(0).toUpperCase() + mode.slice(1)} Mode</div>
+        <div className="text-[10px] md:text-sm text-gray-400 uppercase tracking-widest">
+          {mode} mode
+        </div>
       </header>
 
-      <div className="relative grid grid-cols-12 gap-6 p-8 z-10">
+      <div className="relative flex flex-col lg:grid lg:grid-cols-12 gap-6 p-4 md:p-8 z-10">
         {/* MODES COLUMN */}
-        <div className="col-span-3 space-y-4">
-          {MODES.map((item) => (
-            <div key={item.id} onClick={() => { 
-                if (mode !== item.id) {
-                  setMode(item.id); 
-                  setRefinedPrompt(""); 
-                  setImageResult(null); 
-                  reset(); 
-                }
-              }}
-              className={`group p-5 rounded-2xl border backdrop-blur-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer
-                ${mode === item.id ? "border-blue-400/50 bg-white/10" : "border-white/10 bg-white/5"}`}>
-              <h2 className={`text-lg font-semibold ${item.color === "blue" ? "text-blue-400" : "text-yellow-400"}`}>{item.title}</h2>
-              <p className="text-sm text-gray-400 mt-1">{item.desc}</p>
-              <div className={`h-1 transition-all duration-500 mt-3 bg-gradient-to-r from-blue-500 to-yellow-400 rounded-full
-                ${mode === item.id ? "w-full" : "w-0 group-hover:w-full"}`} />
-            </div>
-          ))}
+        <div className="order-2 lg:order-1 lg:col-span-3">
+          <div className="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 custom-scrollbar">
+            {MODES.map((item) => (
+              <div key={item.id} onClick={() => { 
+                  if (mode !== item.id) {
+                    setMode(item.id); 
+                    setRefinedPrompt(""); 
+                    setImageResult(null); 
+                    reset(); 
+                  }
+                }}
+                className={`group flex-shrink-0 w-[240px] lg:w-full p-4 md:p-5 rounded-2xl border backdrop-blur-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer
+                  ${mode === item.id ? "border-blue-400/50 bg-white/10" : "border-white/10 bg-white/5"}`}>
+                <h2 className={`text-base md:text-lg font-semibold ${item.color === "blue" ? "text-blue-400" : "text-yellow-400"}`}>{item.title}</h2>
+                <p className="text-xs text-gray-400 mt-1 line-clamp-1 lg:line-clamp-none">{item.desc}</p>
+                <div className={`h-1 transition-all duration-500 mt-3 bg-gradient-to-r from-blue-500 to-yellow-400 rounded-full
+                  ${mode === item.id ? "w-full" : "w-0 group-hover:w-full"}`} />
+              </div>
+            ))}
+          </div>
           <button onClick={() => setIsTemplateOpen(true)}
-            className="w-full mt-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition text-sm font-semibold tracking-wider">
+            className="w-full mt-2 lg:mt-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition text-sm font-semibold tracking-wider">
             Access Library
           </button>
         </div>
 
-        <div className="col-span-6 space-y-6">
+        <div className="order-1 lg:order-2 lg:col-span-6 space-y-6">
           <div className="p-8 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 border border-white/10 backdrop-blur-xl shadow-2xl">
-            <h2 className="text-3xl font-bold">
+            <h2 className="text-2xl md:text-3xl font-bold">
               {mode === "analyze" && <>Analyze <span className="text-yellow-400">Quality</span></>}
               {mode === "build" && <>Build <span className="text-yellow-400">Power</span> Prompts</>}
               {mode === "recovery" && <>Recover <span className="text-yellow-400">Failed</span> Prompts</>}
@@ -299,7 +303,7 @@ export default function Home() {
                     <span className="text-[10px] font-mono text-blue-300">{(parsed.phase_1_perception.confidence * 100).toFixed(0)}% Conf.</span>
                   )}
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h5 className="text-[9px] text-gray-500 uppercase mb-1">Detected Intent</h5>
                     <div className="text-xs text-blue-100 font-semibold capitalize">{parsed.phase_1_perception?.intent || parsed.phase_2_structuring?.detected_type || "Analyze"}</div>
@@ -322,7 +326,7 @@ export default function Home() {
               </div>
 
               {/* PHASE 2 & 3: STRUCTURING & ANALYSIS */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="p-4 rounded-2xl border border-yellow-500/10 bg-white/5">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-yellow-500 text-black uppercase">Phase 2</span>
@@ -422,7 +426,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="col-span-3 space-y-6">
+        <div className="order-3 lg:order-3 lg:col-span-3 space-y-6">
           {/* HISTORY SECTION */}
           <div className="p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl h-[450px] flex flex-col">
             <div className="flex items-center gap-2 mb-6 border-b border-white/5 pb-4">
